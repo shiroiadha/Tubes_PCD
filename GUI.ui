@@ -9,63 +9,41 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1800</width>
-    <height>800</height>
+    <width>1200</width>
+    <height>1000</height>
    </rect>
+  </property>
+  <property name="font">
+   <font>
+    <weight>50</weight>
+    <bold>false</bold>
+    <kerning>true</kerning>
+   </font>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="button_loadimg1">
+   <widget class="QPushButton" name="button_loadimg">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>690</y>
+      <x>690</x>
+      <y>580</y>
       <width>171</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>Load Image Input 1</string>
+     <string>Load Image Input</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_window1">
+   <widget class="QLabel" name="label_win_1">
     <property name="geometry">
      <rect>
       <x>25</x>
       <y>40</y>
-      <width>550</width>
-      <height>550</height>
-     </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::Box</enum>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="button_loadimg2">
-    <property name="geometry">
-     <rect>
-      <x>815</x>
-      <y>690</y>
-      <width>171</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Load Image Input 2</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_window2">
-    <property name="geometry">
-     <rect>
-      <x>625</x>
-      <y>40</y>
-      <width>550</width>
-      <height>550</height>
+      <width>256</width>
+      <height>256</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -78,49 +56,65 @@
    <widget class="QPushButton" name="button_saveimg">
     <property name="geometry">
      <rect>
-      <x>1604</x>
-      <y>692</y>
+      <x>690</x>
+      <y>720</y>
       <width>171</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>Save Image (Last Result)</string>
+     <string>Save Image</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="button_clnW1">
+   <widget class="QLabel" name="label_1">
     <property name="geometry">
      <rect>
-      <x>227</x>
-      <y>610</y>
-      <width>121</width>
-      <height>41</height>
+      <x>50</x>
+      <y>10</y>
+      <width>211</width>
+      <height>16</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+      <kerning>true</kerning>
+     </font>
+    </property>
     <property name="text">
-     <string>Clear Window 1</string>
+     <string>CITRA ASLI / INPUT</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="button_clnW2">
+   <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>840</x>
-      <y>610</y>
-      <width>121</width>
-      <height>41</height>
+      <x>400</x>
+      <y>10</y>
+      <width>151</width>
+      <height>16</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+      <kerning>true</kerning>
+     </font>
+    </property>
     <property name="text">
-     <string>Clear Window 2</string>
+     <string>GRAYSCALING</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_window3">
+   <widget class="QLabel" name="label_win_2">
     <property name="geometry">
      <rect>
-      <x>1225</x>
+      <x>340</x>
       <y>40</y>
-      <width>550</width>
-      <height>550</height>
+      <width>256</width>
+      <height>256</height>
      </rect>
     </property>
     <property name="frameShape">
@@ -130,25 +124,12 @@
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="button_clnW3">
+   <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>1430</x>
-      <y>610</y>
-      <width>121</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Clear Window 3</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_inpu1">
-    <property name="geometry">
-     <rect>
-      <x>240</x>
-      <y>11</y>
-      <width>90</width>
+      <x>50</x>
+      <y>320</y>
+      <width>201</width>
       <height>16</height>
      </rect>
     </property>
@@ -157,18 +138,35 @@
       <pointsize>12</pointsize>
       <weight>75</weight>
       <bold>true</bold>
+      <kerning>true</kerning>
      </font>
     </property>
     <property name="text">
-     <string>WINDOW 1</string>
+     <string>IMAGE SMOOTHING</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_input2">
+   <widget class="QLabel" name="label_win_3">
     <property name="geometry">
      <rect>
-      <x>850</x>
-      <y>11</y>
-      <width>90</width>
+      <x>20</x>
+      <y>350</y>
+      <width>256</width>
+      <height>256</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>320</y>
+      <width>181</width>
       <height>16</height>
      </rect>
     </property>
@@ -177,18 +175,35 @@
       <pointsize>12</pointsize>
       <weight>75</weight>
       <bold>true</bold>
+      <kerning>true</kerning>
      </font>
     </property>
     <property name="text">
-     <string>WINDOW 2</string>
+     <string>EDGE DETECTION</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_output">
+   <widget class="QLabel" name="label_win_4">
     <property name="geometry">
      <rect>
-      <x>1470</x>
-      <y>11</y>
-      <width>71</width>
+      <x>340</x>
+      <y>350</y>
+      <width>256</width>
+      <height>256</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>630</y>
+      <width>231</width>
       <height>16</height>
      </rect>
     </property>
@@ -197,37 +212,181 @@
       <pointsize>12</pointsize>
       <weight>75</weight>
       <bold>true</bold>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="text">
+     <string>MORPHING - CLOSING</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_win_5">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>660</y>
+      <width>256</width>
+      <height>256</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>630</y>
+      <width>201</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <property name="text">
+     <string>OBJECT DETECTION</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_win_6">
+    <property name="geometry">
+     <rect>
+      <x>340</x>
+      <y>660</y>
+      <width>256</width>
+      <height>256</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_7">
+    <property name="geometry">
+     <rect>
+      <x>870</x>
+      <y>10</y>
+      <width>81</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+      <kerning>true</kerning>
      </font>
     </property>
     <property name="text">
      <string>OUTPUT</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="button_grayscale">
+   <widget class="QLabel" name="label_win_7">
     <property name="geometry">
      <rect>
-      <x>1225</x>
-      <y>692</y>
-      <width>171</width>
-      <height>51</height>
+      <x>660</x>
+      <y>40</y>
+      <width>512</width>
+      <height>512</height>
      </rect>
     </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
     <property name="text">
-     <string>Grayscale Image</string>
+     <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="button_dtctexprssion">
+   <widget class="QPushButton" name="button_processimg">
     <property name="geometry">
      <rect>
-      <x>1416</x>
-      <y>692</y>
+      <x>970</x>
+      <y>580</y>
       <width>171</width>
       <height>51</height>
      </rect>
     </property>
     <property name="text">
-     <string>Detect Expression</string>
+     <string>Process Image Input</string>
     </property>
+   </widget>
+   <widget class="QPushButton" name="button_resetimg">
+    <property name="geometry">
+     <rect>
+      <x>970</x>
+      <y>720</y>
+      <width>171</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Reset: Clear Image I/O</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="comboBox">
+    <property name="geometry">
+     <rect>
+      <x>690</x>
+      <y>800</y>
+      <width>171</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <weight>50</weight>
+      <bold>false</bold>
+      <kerning>true</kerning>
+     </font>
+    </property>
+    <item>
+     <property name="text">
+      <string>Image 7 (Default)</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Image 1</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Image 2</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Image 3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Image 4</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Image 5</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Image 6</string>
+     </property>
+    </item>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -236,8 +395,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1800</width>
-     <height>21</height>
+     <width>1200</width>
+     <height>26</height>
     </rect>
    </property>
   </widget>
