@@ -185,6 +185,6 @@ class ShowImage(QMainWindow):
 
 app = QtWidgets.QApplication(sys.argv)
 window = ShowImage()
-window.setWindowTitle('DIGITAL IMAGE PROCESSING')
+window.setWindowTitle('SOYBEAN QUALITY DETECTION')
 window.show()
 sys.exit(app.exec())
