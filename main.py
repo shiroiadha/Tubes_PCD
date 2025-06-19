@@ -6,32 +6,30 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtGui import QImage, QPixmap
 from PyQt5.uic import loadUi
+from Tools.scripts.dutree import display
 
-from utilitis.io import loadimg, saveimg, array2qimage
-from utilitis.img_resizer import resize_with_aspect_ratio
-from utilitis.grayscale import grayscaling
-from utilitis.expression_detect import *
+from utilitis.img_processing import *
+from utilitis.io import *
+from utilitis.img_resizer import *
 
 class ShowImage(QMainWindow):
     def __init__(self):
         super(ShowImage, self).__init__()
         loadUi('GUI.ui', self)
         self.centerWindow()
-        self.Image = None
+        self.Image1 = None
         self.Image2 = None
         self.Image3 = None
+        self.Image4 = None
+        self.Image5 = None
+        self.Image6 = None
+        self.Image7 = None
 
         # BASE FUNCTION MENU
-        self.button_loadimg1.clicked.connect(self.loadF1)
-        self.button_loadimg2.clicked.connect(self.loadF2)
-        self.button_saveimg.clicked.connect(self.saveF)
-        self.button_grayscale.clicked.connect(self.gs)
-        self.button_clnW1.clicked.connect(self.clnw1)
-        self.button_clnW2.clicked.connect(self.clnw2)
-        self.button_clnW3.clicked.connect(self.clnw3)
-
-        # EXPRESSION DETECTION
-        self.button_dtctexprssion.clicked.connect(self.expression)
+        self.button_loadimg.clicked.connect(self.loadimg)
+        self.button_resetimg.clicked.connect(self.resetimg)
+        self.button_saveimg.clicked.connect(self.saveimg)
+        self.button_processimg.clicked.connect(self.processimg)
 
     def centerWindow(self):
         frameGm = self.frameGeometry()
@@ -39,72 +37,89 @@ class ShowImage(QMainWindow):
         frameGm.moveCenter(screen)
         self.move(frameGm.topLeft())
 
-    # BASE FUNCTION'S FUNCTION
-    def loadF1(self):
+    def loadimg(self):
         image = loadimg(self)
         if image is not None:
-            self.Image = image
-            self.Image = resize_with_aspect_ratio(image, 720)
+            self.Image1 = resize_with_aspect_ratio(image, 512)
+            # self.Image1 = image
             self.displayImage(1)
 
-    def loadF2(self):
-        image = loadimg(self)
-        if image is not None:
-            self.Image2 = resize_with_aspect_ratio(image, 720)
-            self.displayImage(2)
+    def resetimg(self):
+        for i in range(7):
+            self.displayImage(i + 1, True)
+            setattr(self, f'Image{i}', None)
 
-    def saveF(self):
-        saveimg(self, self.Image3)
+    def saveimg(self):
+        saveimg(self, self.Image7)
 
-    def gs(self):
-        if self.Image is not None:
-            try:
-                self.Image = grayscaling(self.Image)
-            except:
-                pass
-            self.displayImage(1)
-        if self.Image2 is not None:
-            try:
-                self.Image2 = grayscaling(self.Image2)
-            except:
-                pass
-            self.displayImage(2)
+    # MWEHEHEHEHE!!!!
+    def processimg(self):
+        image = self.Image1 # Entering image input from Image1 to variable image
 
-    def clnw1(self):
-        self.displayImage(1, True)
-        self.Image = None
+        # Grayscaling image
+        self.Image2 = grayscaling(image)
+        image = self.Image2 # Re-entering the previous output
+        self.displayImage(2)
 
-    def clnw2(self):
-        self.displayImage(2, True)
-        self.Image2 = None
-
-    def clnw3(self):
-        self.displayImage(3, True)
-        self.Image3 = None
-
-    def expression(self):
-        self.Image3 = detect_expression(1)
+        # Image Smoothing with Gaussian Kernel
+        self.Image3 = gaussian(image)
+        image = self.Image3  # Re-entering the previous output
         self.displayImage(3)
+
+        # Edge Detection with Canny Edge Detection
+        self.Image4 = canny(image, 30, 80)
+        image = self.Image4  # Re-entering the previous output
+        self.displayImage(4)
+
+        # Morphing image with Closing Method (Dilation => Erosion)
+        self.Image5 = closing(image, 7)
+        image = self.Image5  # Re-entering the previous output
+        self.displayImage(5)
+
+        # Marking and giving contours for each detected object
+        self.Image6 = makecontours(image)
+        image = self.Image6  # Re-entering the previous output
+        self.displayImage(6)
+
+        self.Image7 = analyze_quality(self.Image5, self.Image2)
+        image = self.Image7  # Re-entering the previous output
+        self.displayImage(7)
 
     def displayImage(self, windows=1, clear=False):
         qformat = QImage.Format_Indexed8
 
         if clear:
             if windows == 1:
-                self.label_window1.clear()
+                self.label_win_1.clear()
             elif windows == 2:
-                self.label_window2.clear()
+                self.label_win_2.clear()
             elif windows == 3:
-                self.label_window3.clear()
+                self.label_win_3.clear()
+            elif windows == 4:
+                self.label_win_4.clear()
+            elif windows == 5:
+                self.label_win_5.clear()
+            elif windows == 6:
+                self.label_win_6.clear()
+            elif windows == 7:
+                self.label_win_7.clear()
             return
 
         # Pilih image sesuai window
         if windows == 1:
-            img_data = self.Image
+            img_data = self.Image1
         elif windows == 2:
             img_data = self.Image2
         elif windows == 3:
             img_data = self.Image3
+        elif windows == 4:
+            img_data = self.Image4
+        elif windows == 5:
+            img_data = self.Image5
+        elif windows == 6:
+            img_data = self.Image6
+        elif windows == 7:
+            img_data = self.Image7
         else:
             return
 
@@ -130,25 +145,45 @@ class ShowImage(QMainWindow):
             img = img_data  # Jika sudah QImage, tidak perlu konversi lagi
 
         pixmap = QPixmap.fromImage(img)
-        scaled_pixmap1 = pixmap.scaled(self.label_window1.size(), QtCore.Qt.KeepAspectRatio,
+        scaled_pixmap1 = pixmap.scaled(self.label_win_1.size(), QtCore.Qt.KeepAspectRatio,
                                        QtCore.Qt.SmoothTransformation)
-        scaled_pixmap2 = pixmap.scaled(self.label_window2.size(), QtCore.Qt.KeepAspectRatio,
+        scaled_pixmap2 = pixmap.scaled(self.label_win_2.size(), QtCore.Qt.KeepAspectRatio,
                                        QtCore.Qt.SmoothTransformation)
-        scaled_pixmap3 = pixmap.scaled(self.label_window3.size(), QtCore.Qt.KeepAspectRatio,
+        scaled_pixmap3 = pixmap.scaled(self.label_win_3.size(), QtCore.Qt.KeepAspectRatio,
+                                       QtCore.Qt.SmoothTransformation)
+        scaled_pixmap4 = pixmap.scaled(self.label_win_4.size(), QtCore.Qt.KeepAspectRatio,
+                                       QtCore.Qt.SmoothTransformation)
+        scaled_pixmap5 = pixmap.scaled(self.label_win_5.size(), QtCore.Qt.KeepAspectRatio,
+                                       QtCore.Qt.SmoothTransformation)
+        scaled_pixmap6 = pixmap.scaled(self.label_win_6.size(), QtCore.Qt.KeepAspectRatio,
+                                       QtCore.Qt.SmoothTransformation)
+        scaled_pixmap7 = pixmap.scaled(self.label_win_7.size(), QtCore.Qt.KeepAspectRatio,
                                        QtCore.Qt.SmoothTransformation)
 
         if windows == 1:
-            self.label_window1.setPixmap(scaled_pixmap1)
-            self.label_window1.setAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
+            self.label_win_1.setPixmap(scaled_pixmap1)
+            self.label_win_1.setAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
         elif windows == 2:
-            self.label_window2.setPixmap(scaled_pixmap2)
-            self.label_window2.setAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
+            self.label_win_2.setPixmap(scaled_pixmap2)
+            self.label_win_2.setAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
         elif windows == 3:
-            self.label_window3.setPixmap(scaled_pixmap3)
-            self.label_window3.setAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
+            self.label_win_3.setPixmap(scaled_pixmap3)
+            self.label_win_3.setAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
+        elif windows == 4:
+            self.label_win_4.setPixmap(scaled_pixmap4)
+            self.label_win_4.setAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
+        elif windows == 5:
+            self.label_win_5.setPixmap(scaled_pixmap5)
+            self.label_win_5.setAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
+        elif windows == 6:
+            self.label_win_6.setPixmap(scaled_pixmap6)
+            self.label_win_6.setAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
+        elif windows == 7:
+            self.label_win_7.setPixmap(scaled_pixmap7)
+            self.label_win_7.setAlignment(QtCore.Qt.AlignHCenter | QtCore.Qt.AlignVCenter)
 
 app = QtWidgets.QApplication(sys.argv)
 window = ShowImage()
-window.setWindowTitle('DIGITAL IMAGE PROCESSING')
+window.setWindowTitle('SOYBEAN QUALITY DETECTION')
 window.show()
 sys.exit(app.exec())
